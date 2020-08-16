@@ -1,0 +1,8 @@
+npm init -y
+npm i express ejs uuid socket.io
+npm i --save-dev nodemon
+
+npm i -g peer
+peerjs --port 3001
+Paste below code in room.ejs
+ <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
