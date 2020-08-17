@@ -5,4 +5,50 @@ npm i --save-dev nodemon
 npm i -g peer
 peerjs --port 3001
 Paste below code in room.ejs
- <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+<script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
+
+//=========================================================================================//
+//====================================  Peer ==============================================//
+//=========================================================================================//
+https://peerjs.com/
+
+PeerJS wraps the browser's WebRTC implementation to provide a complete, configurable, 
+and easy-to-use peer-to-peer connection API. 
+Equipped with nothing but an ID, a peer can create a P2P data or media stream connection to a remote peer.
+
+//================================= Create a peer ==========================================//
+var peer = new Peer(); 
+
+//========================================= Connect ========================================//
+var conn = peer.connect('another-peers-id');
+// on open will be launch when you successfully connect to PeerServer
+conn.on('open', function(){
+  // here you have conn.id
+  conn.send('hi!');
+});
+
+//=========================================== Call ==========================================//
+Call
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+getUserMedia({video: true, audio: true}, function(stream) {
+  var call = peer.call('another-peers-id', stream);
+  call.on('stream', function(remoteStream) {
+    // Show stream in some video/canvas element.
+  });
+}, function(err) {
+  console.log('Failed to get local stream' ,err);
+});
+
+//=========================================== Answer =========================================//
+Answer
+var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+peer.on('call', function(call) {
+  getUserMedia({video: true, audio: true}, function(stream) {
+    call.answer(stream); // Answer the call with an A/V stream.
+    call.on('stream', function(remoteStream) {
+      // Show stream in some video/canvas element.
+    });
+  }, function(err) {
+    console.log('Failed to get local stream' ,err);
+  });
+});

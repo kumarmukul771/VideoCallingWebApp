@@ -47,7 +47,8 @@ const myPeer = new Peer(undefined, {
 // Started PeerServer on ::, port: 3001, path: / (v. 0.5.3)
 // Client connected: 013c8673-2425-4d08-8d52-e99d69cad7b4
 
-// As soonas we connect to peers server and get an id , we want to run below code
+// As soon as we connect to peers server and get an id , we want to run below code
+// on open will be launch when you successfully connect to PeerServer
 myPeer.on("open", (id) => {
   // this is gonna send an event to our server
   socket.emit("join-room", ROOM_ID, id);
